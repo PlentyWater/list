@@ -7,10 +7,11 @@ void test_creatAlist();
 void test_deleteMiddleNodeOfList();
 void test_deleteMidNode2();
 void test_reverseList();
+void test_reversePartList();
 
 int main()
 {
-    test_reverseList();
+    test_reversePartList();
 }
 
 void test_creatAlist()
@@ -37,5 +38,18 @@ void test_reverseList()
 {
     ListNode *pHead = createAList();
     reverseList(&pHead);
+    printList(pHead);
+}
+
+void test_reversePartList()
+{
+    ListNode *pHead = createAList();
+    int from = 0;
+    int to = 0;
+    printf("input from :");
+    std::cin >> from;
+    printf("input to :");
+    std::cin >> to;
+    reversePartList(&pHead, from, to);
     printList(pHead);
 }

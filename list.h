@@ -14,6 +14,7 @@ int totalNodesOfList(ListNode *pHead);
 void deleteMiddleNode(ListNode **pHead);
 void deleteMidNode2(ListNode **pHead);
 void reverseList(ListNode **pHead);
+void reversePartList(ListNode **pHead, int from, int to);
 
 
 

@@ -161,3 +161,66 @@ void reverseList(ListNode **pHead)
     }
     *pHead = pRear;
 }
+
+void reversePartList(ListNode **pHead, int from, int to)
+{
+    if(pHead == NULL || *pHead == NULL)
+    {
+        printf("invalid parameter, pHead or *pHead is NULL\n");
+        return;
+    }
+
+    int len = 0;
+    ListNode *pFrom = NULL;
+    ListNode *pTo = NULL;
+    ListNode *pNode = *pHead;
+    while(pNode != NULL)
+    {
+        len++;
+        pFrom = len == from - 1 ? pNode : pFrom;
+        pTo = len == to + 1 ? pNode : pTo;
+        pNode = pNode->m_pNext;
+    }
+
+    if(from < 1 || to > len || from > to)
+    {
+        printf("invalid parameter, from(%d), to(%d)\n", from, to);
+        return;
+    }
+
+    ListNode *pRear = pTo;
+    ListNode *pNext = NULL;
+    pNode = pFrom != NULL ? pFrom->m_pNext : *pHead;
+    while(pNode != pTo)
+    {
+        pNext = pNode->m_pNext;
+        pNode->m_pNext = pRear;
+        pRear = pNode;
+        pNode = pNext;
+    }
+    if(pFrom != NULL)
+    {
+        pFrom->m_pNext = pRear;
+    }
+    else
+    {
+        *pHead = pRear;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

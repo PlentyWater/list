@@ -116,7 +116,7 @@ void deleteMidNode2(ListNode **pHead)
     ListNode *p2 = *pHead;
     ListNode *pTmp = NULL;
 
-    while(p2 != NULL && p2->m_pNext != NULL)
+    while(p2 != NULL && p2->m_pNext != NULL && p2->m_pNext->m_pNext != NULL)
     {
         pre = p1;
         p1 = p1->m_pNext;
@@ -124,13 +124,13 @@ void deleteMidNode2(ListNode **pHead)
     }
 
     //only one node
-    if(p2 == *pHead)
+    if(p2 == *pHead && p2->m_pNext == NULL)
     {
         return;
     }
 
     //only two nodes
-    if(pre == *pHead && p2 == NULL)
+    if(p2 == *pHead && p2->m_pNext != NULL)
     {
         *pHead = pre->m_pNext;
         delete pre;
@@ -141,4 +141,23 @@ void deleteMidNode2(ListNode **pHead)
     pTmp = pre->m_pNext;
     pre->m_pNext = pTmp->m_pNext;
     delete pTmp;
+}
+
+void reverseList(ListNode **pHead)
+{
+    if(pHead == NULL || *pHead == NULL)
+        return;
+
+    ListNode *pRear = NULL;
+    ListNode *pNext = NULL;
+    ListNode *pNode = *pHead;
+
+    while(pNode != NULL)
+    {
+        pNext = pNode->m_pNext;
+        pNode->m_pNext = pRear;
+        pRear = pNode;
+        pNode = pNext;
+    }
+    *pHead = pRear;
 }

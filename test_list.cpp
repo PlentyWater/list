@@ -5,11 +5,12 @@
 void test_creatAlist();
 
 void test_deleteMiddleNodeOfList();
-void test_delteMidNode2();
+void test_deleteMidNode2();
+void test_reverseList();
 
 int main()
 {
-    test_deleteMiddleNodeOfList();
+    test_reverseList();
 }
 
 void test_creatAlist()
@@ -25,9 +26,16 @@ void test_deleteMiddleNodeOfList()
     printList(pHead);
 }
 
-void test_delteMidNode2()
+void test_deleteMidNode2()
 {
     ListNode *pHead = createAList();
     deleteMidNode2(&pHead);
+    printList(pHead);
+}
+
+void test_reverseList()
+{
+    ListNode *pHead = createAList();
+    reverseList(&pHead);
     printList(pHead);
 }

@@ -72,6 +72,18 @@ int totalNodesOfList(ListNode *pHead)
     return n;
 }
 
+ListNode *findTheLastNode(ListNode *pHead)
+{
+    if(pHead == NULL)
+        return NULL;
+
+    ListNode *pNode = pHead;
+    while(pNode->m_pNext != NULL)
+        pNode = pNode->m_pNext;
+
+    return pNode;
+}
+
 void deleteMiddleNode(ListNode **pHead)
 {
     if(pHead == NULL || *pHead == NULL)
@@ -208,6 +220,52 @@ void reversePartList(ListNode **pHead, int from, int to)
     }
 }
 
+void josephusKill(ListNode **pHead, int m)
+{
+    if(pHead == NULL || *pHead == NULL)
+    {
+        printf("pHead %p or *pHead %p is NULL\n", pHead, *pHead);
+        return;
+    }
+
+    ListNode *pPre = *pHead;
+    ListNode *pNode = (*pHead)->m_pNext;
+    int length = 1;
+    while(pNode != *pHead)
+    {
+        length++;
+        pPre = pNode;
+        pNode = pNode->m_pNext;
+    }
+
+    if(m <= 0 || m > length)
+    {
+        printf("length (%d), m (%d) is invalid\n", length, m);
+        return;
+    }
+
+    pNode = *pHead;
+    int n = 0;
+    while(pNode != pPre)
+    {
+        n++;
+        if(n < m)
+        {
+            pPre = pNode;
+            pNode = pNode->m_pNext;
+        }
+        else
+        {
+            ListNode *pTmp = pNode;
+            pPre->m_pNext = pNode->m_pNext;
+            pNode = pNode->m_pNext;
+            delete pTmp;
+            n = 0;
+        }
+    }
+
+    *pHead = pNode;
+}
 
 
 

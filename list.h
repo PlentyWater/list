@@ -17,6 +17,8 @@ void deleteMidNode2(ListNode **pHead);
 void reverseList(ListNode **pHead);
 void reversePartList(ListNode **pHead, int from, int to);
 void josephusKill(ListNode **pHead, int m);
+int getLive(int total, int m);
+ListNode* josephusKill2(ListNode *pHead, int m);
 
 
 

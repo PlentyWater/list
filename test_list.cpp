@@ -9,10 +9,11 @@ void test_deleteMidNode2();
 void test_reverseList();
 void test_reversePartList();
 void test_josephusKill();
+void test_josephusKill2();
 
 int main()
 {
-    test_josephusKill();
+    test_josephusKill2();
 }
 
 void test_creatAlist()
@@ -65,4 +66,16 @@ void test_josephusKill()
     std::cin >> m;
     josephusKill(&pHead, m);
     printList(pHead);
+}
+
+void test_josephusKill2()
+{
+    ListNode *pHead = createAList();
+    ListNode *pRear = findTheLastNode(pHead);
+    pRear->m_pNext = pHead;
+    printf("input m\n");
+    int m = 0;
+    std::cin >> m;
+    ListNode *pNode = josephusKill2(pHead, m);
+    printf("live node: %d\n", pNode->m_nValue);
 }

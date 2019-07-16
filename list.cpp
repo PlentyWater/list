@@ -238,7 +238,7 @@ void josephusKill(ListNode **pHead, int m)
         pNode = pNode->m_pNext;
     }
 
-    if(m <= 0 || m > length)
+    if(m <= 0)
     {
         printf("length (%d), m (%d) is invalid\n", length, m);
         return;
@@ -265,6 +265,37 @@ void josephusKill(ListNode **pHead, int m)
     }
 
     *pHead = pNode;
+}
+
+int getLive(int total, int m)
+{
+    if(total == 1)
+        return 1;
+    return (getLive(total - 1, m) + m - 1) % total + 1;
+}
+
+ListNode* josephusKill2(ListNode *pHead, int m)
+{
+    if(pHead == NULL || pHead->m_pNext == pHead || m < 1)
+    {
+        return pHead;
+    }
+
+    ListNode *pNode = pHead->m_pNext;
+    int total = 1;
+    int live = 0;
+    while(pNode != pHead)
+    {
+        total++;
+        pNode = pNode->m_pNext;
+    }
+
+    live = getLive(total, m);
+    pNode = pHead;
+    while(--live != 0)
+        pNode = pNode->m_pNext;
+
+    return pNode;
 }
 
 

@@ -10,10 +10,11 @@ void test_reverseList();
 void test_reversePartList();
 void test_josephusKill();
 void test_josephusKill2();
+void test_isPalindrome1();
 
 int main()
 {
-    test_josephusKill2();
+    test_isPalindrome1();
 }
 
 void test_creatAlist()
@@ -78,4 +79,10 @@ void test_josephusKill2()
     std::cin >> m;
     ListNode *pNode = josephusKill2(pHead, m);
     printf("live node: %d\n", pNode->m_nValue);
+}
+
+void test_isPalindrome1()
+{
+    ListNode *pHead = createAList();
+    printf("is palindrome : %d \n", isPalindrome1(pHead));
 }

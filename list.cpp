@@ -1,5 +1,6 @@
 #include <cstdio>
 #include <iostream>
+#include <stack>
 #include "list.h"
 
 ListNode* createAList()
@@ -296,6 +297,35 @@ ListNode* josephusKill2(ListNode *pHead, int m)
         pNode = pNode->m_pNext;
 
     return pNode;
+}
+
+bool isPalindrome1(ListNode *pHead)
+{
+    if(pHead == NULL)
+        return false;
+
+    std::stack<ListNode*> nodeStack;
+    ListNode *pNode = pHead;
+    while(pNode != NULL)
+    {
+        nodeStack.push(pNode);
+        pNode = pNode->m_pNext;
+    }
+
+    pNode = pHead;
+    while(pNode != NULL)
+    {
+        if(pNode->m_nValue == nodeStack.top()->m_nValue)
+        {
+            pNode = pNode->m_pNext;
+            nodeStack.pop();
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
 

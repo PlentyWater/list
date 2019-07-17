@@ -22,6 +22,7 @@ int getLive(int total, int m);
 ListNode* josephusKill2(ListNode *pHead, int m);
 
 bool isPalindrome1(ListNode *pHead);
+bool isPalindrome2(ListNode *pHead);
 
 
 

@@ -328,6 +328,74 @@ bool isPalindrome1(ListNode *pHead)
     return true;
 }
 
+bool isPalindrome2(ListNode *pHead)
+{
+    if(pHead == NULL)
+        return false;
+
+    ListNode *pNode = NULL;
+    ListNode *pPre = NULL;
+    ListNode *pNext = NULL;
+    ListNode *pRear = NULL;
+    ListNode *pMid = NULL;
+    ListNode *pNode2 = NULL;
+
+    pNode = pHead;
+    int len = 0;
+    while(pNode != NULL)//calculate the total number
+    {
+        len++;
+        pNode = pNode->m_pNext;
+    }
+
+    int mid = (len + 1) / 2;
+    int number = 1;
+    pNode = pHead;
+    while(++number <= mid)//find the middle node
+        pNode = pNode->m_pNext;
+
+    pMid = pNode;
+    pNode = pNode->m_pNext;
+    pMid->m_pNext = NULL;
+    pPre = pMid;
+    while(pNode != NULL) // revert the last middle part of the Liset
+    {
+        pNext = pNode->m_pNext;
+        pNode->m_pNext = pPre;
+        pPre = pNode;
+        pNode = pNext;
+    }
+    pRear = pPre;
+
+    pNode = pHead;
+    pNode2 = pRear;
+    bool ret = true;
+    while(pNode != NULL && pNode2 != NULL)
+    {
+        if(pNode->m_nValue == pNode2->m_nValue)
+        {
+            pNode = pNode->m_pNext;
+            pNode2 = pNode2->m_pNext;
+        }
+        else
+        {
+            ret = false;
+            break;
+        }
+    }
+
+    pNode = pRear;
+    pPre = NULL;
+    while(pNode != NULL) //restore the List
+    {
+        pNext = pNode->m_pNext;
+        pNode->m_pNext = pPre;
+        pPre = pNode;
+        pNode = pNext;
+    }
+
+    return ret;
+}
 
 
 

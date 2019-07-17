@@ -11,10 +11,11 @@ void test_reversePartList();
 void test_josephusKill();
 void test_josephusKill2();
 void test_isPalindrome1();
+void test_isPalindrome2();
 
 int main()
 {
-    test_isPalindrome1();
+    test_isPalindrome2();
 }
 
 void test_creatAlist()
@@ -85,4 +86,10 @@ void test_isPalindrome1()
 {
     ListNode *pHead = createAList();
     printf("is palindrome : %d \n", isPalindrome1(pHead));
+}
+void test_isPalindrome2()
+{
+    ListNode *pHead = createAList();
+    printf("List %s palindrome \n", isPalindrome2(pHead) ? "is" : "is not");
+    printList(pHead);
 }

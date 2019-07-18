@@ -397,7 +397,94 @@ bool isPalindrome2(ListNode *pHead)
     return ret;
 }
 
+void listLowMidHigh(ListNode **pHead, int pivot)
+{
+    if(pHead == NULL || *pHead == NULL)
+        return;
 
+    ListNode *pNode = *pHead;
+    ListNode *pLow1 = NULL;
+    ListNode *pLow2 = NULL;
+    ListNode *pMid1 = NULL;
+    ListNode *pMid2 = NULL;
+    ListNode *pHigh1 = NULL;
+    ListNode *pHigh2 = NULL;
+    ListNode *pNext = NULL;
+
+    while(pNode != NULL)
+    {
+        pNext = pNode->m_pNext;
+        if(pNode->m_nValue < pivot)
+        {
+            pNode->m_pNext = NULL;
+            if(pLow1 == NULL)
+            {
+                pLow1 = pNode;
+                pLow2 = pNode;
+            }
+            else
+            {
+                pLow2->m_pNext = pNode;
+                pLow2 = pNode;
+            }
+        }
+        else if(pNode->m_nValue == pivot)
+        {
+            pNode->m_pNext = NULL;
+            if(pMid1 == NULL)
+            {
+                pMid1 = pNode;
+                pMid2 = pNode;
+            }
+            else
+            {
+                pMid2->m_pNext = pNode;
+                pMid2 = pNode;
+            }
+        }
+        else
+        {
+            pNode->m_pNext = NULL;
+            if(pHigh1 == NULL)
+            {
+                pHigh1 = pNode;
+                pHigh2 = pNode;
+            }
+            else
+            {
+                pHigh2->m_pNext = pNode;
+                pHigh2 = pNode;
+            }
+        }
+        pNode = pNext;
+    }
+
+    if(pLow2 != NULL)
+    {
+        if(pMid2 != NULL)
+        {
+            pLow2->m_pNext = pMid1;
+            pMid2->m_pNext = pHigh1;
+        }
+        else
+        {
+            pLow2->m_pNext = pHigh1;
+        }
+        *pHead = pLow1;
+    }
+    else
+    {
+        if(pMid2 != NULL)
+        {
+            pMid2->m_pNext = pHigh1;
+            *pHead = pMid1;
+        }
+        else
+        {
+            *pHead = pHigh1;
+        }
+    }
+}
 
 
 

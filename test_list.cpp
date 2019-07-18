@@ -12,10 +12,11 @@ void test_josephusKill();
 void test_josephusKill2();
 void test_isPalindrome1();
 void test_isPalindrome2();
+void test_listLowMidHigh();
 
 int main()
 {
-    test_isPalindrome2();
+    test_listLowMidHigh();
 }
 
 void test_creatAlist()
@@ -91,5 +92,15 @@ void test_isPalindrome2()
 {
     ListNode *pHead = createAList();
     printf("List %s palindrome \n", isPalindrome2(pHead) ? "is" : "is not");
+    printList(pHead);
+}
+
+void test_listLowMidHigh()
+{
+    ListNode *pHead = createAList();
+    int x = 0;
+    printf("input pivot :");
+    std::cin >> x;
+    listLowMidHigh(&pHead, x);
     printList(pHead);
 }

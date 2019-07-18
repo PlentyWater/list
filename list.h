@@ -24,6 +24,8 @@ ListNode* josephusKill2(ListNode *pHead, int m);
 bool isPalindrome1(ListNode *pHead);
 bool isPalindrome2(ListNode *pHead);
 
+void listLowMidHigh(ListNode **pHead, int pivot);
+
 
 
 

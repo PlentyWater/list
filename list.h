@@ -7,6 +7,13 @@ struct ListNode
     ListNode *m_pNext;
 };
 
+struct RandListNode
+{
+    int m_nValue;
+    RandListNode *m_pRand;
+    RandListNode *m_pNext;
+};
+
 ListNode* createAList();
 void printList(ListNode *pHead);
 int totalNodesOfList(ListNode *pHead);
@@ -25,6 +32,11 @@ bool isPalindrome1(ListNode *pHead);
 bool isPalindrome2(ListNode *pHead);
 
 void listLowMidHigh(ListNode **pHead, int pivot);
+
+RandListNode* copyRandList(RandListNode *pHead);
+
+ListNode* addTwoList(ListNode *pHead1, ListNode *pHead2);
+
 
 
 

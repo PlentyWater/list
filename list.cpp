@@ -486,8 +486,113 @@ void listLowMidHigh(ListNode **pHead, int pivot)
     }
 }
 
+RandListNode* copyRandList(RandListNode *pHead)
+{
+    if(pHead == NULL)
+        return NULL;
 
+    RandListNode *pNode = pHead;
+    RandListNode *pNext = NULL;
+    while(pNode != NULL)
+    {
+        pNext = pNode->m_pNext;
+        RandListNode *pNew = new RandListNode();
+        pNode->m_pNext = pNew;
+        pNew->m_pNext = pNext;
+        pNew->m_nValue = pNode->m_nValue;
+        pNode = pNext;
+    }
 
+    pNode = pHead;
+    RandListNode *pNode2 = NULL;
+    while(pNode != NULL)
+    {
+        pNode2 = pNode->m_pNext;
+        if(pNode->m_pRand != NULL)
+        {
+            pNode2->m_pRand = pNode->m_pRand->m_pNext;
+        }
+        else
+        {
+            pNode2->m_pRand = NULL;
+        }
+        pNode = pNode2->m_pNext;
+    }
+
+    RandListNode *pHead2 = NULL;
+    pNode = pHead;
+    while(pNode != NULL)
+    {
+        pNode2 = pNode->m_pNext;
+        pNext = pNode2->m_pNext;
+        if(pHead2 == NULL)
+            pHead2 = pNode2;
+        if(pNext != NULL)
+        {
+            pNode->m_pNext = pNext;
+            pNode2->m_pNext = pNext->m_pNext;
+        }
+        else
+        {
+            pNode->m_pNext = NULL;
+            pNode2->m_pNext = NULL;
+        }
+        pNode = pNext;
+    }
+}
+
+ListNode* addTwoList(ListNode *pHead1, ListNode *pHead2)
+{
+    reverseList(&pHead1);
+    reverseList(&pHead2);
+
+    ListNode *pNode1 = pHead1;
+    ListNode *pNode2 = pHead2;
+    ListNode *pNew = NULL;
+    int m = 0;
+    while(pNode1 != NULL && pNode2 != NULL)
+    {
+        int x = pNode1->m_nValue + pNode2->m_nValue + m;
+        int n = x % 10;
+        m = x / 10;
+
+        ListNode *pTmp = new ListNode();
+        pTmp->m_nValue = n;
+
+        pTmp->m_pNext = pNew;
+        pNew = pTmp;
+        pNode1 = pNode1->m_pNext;
+        pNode2 = pNode2->m_pNext;
+    }
+
+    ListNode *pNode = pNode1 != NULL ? pNode1 : pNode2;
+    while(pNode != NULL)
+    {
+        int x = pNode->m_nValue + m;
+        int n = x % 10;
+        m = x / 10;
+
+        ListNode *pTmp = new ListNode();
+        pTmp->m_nValue = n;
+
+        pTmp->m_pNext = pNew;
+        pNew = pTmp;
+        pNode = pNode->m_pNext;
+    }
+
+    if(m != 0)
+    {
+        ListNode *pTmp = new ListNode();
+        pTmp->m_nValue = m;
+        pTmp->m_pNext = pNew;
+        pNew = pTmp;
+    }
+
+    reverseList(&pHead1);
+    reverseList(&pHead2);
+
+    return pNew;
+}
 
 
 

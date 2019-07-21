@@ -13,10 +13,11 @@ void test_josephusKill2();
 void test_isPalindrome1();
 void test_isPalindrome2();
 void test_listLowMidHigh();
+void test_addTwoList();
 
 int main()
 {
-    test_listLowMidHigh();
+    test_addTwoList();
 }
 
 void test_creatAlist()
@@ -103,4 +104,14 @@ void test_listLowMidHigh()
     std::cin >> x;
     listLowMidHigh(&pHead, x);
     printList(pHead);
+}
+
+void test_addTwoList()
+{
+    printf("input list1\n");
+    ListNode *pHead1 = createAList();
+    printf("input list2");
+    ListNode *pHead2 = createAList();
+    ListNode *pNew = addTwoList(pHead1, pHead2);
+    printList(pNew);
 }

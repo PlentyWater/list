@@ -15,6 +15,7 @@ struct RandListNode
 };
 
 ListNode* createAList();
+ListNode* createAList2();
 void printList(ListNode *pHead);
 int totalNodesOfList(ListNode *pHead);
 ListNode *findTheLastNode(ListNode *pHead);
@@ -36,6 +37,12 @@ void listLowMidHigh(ListNode **pHead, int pivot);
 RandListNode* copyRandList(RandListNode *pHead);
 
 ListNode* addTwoList(ListNode *pHead1, ListNode *pHead2);
+
+ListNode* getEntryOfLoop(ListNode *pHead);
+ListNode* isNoLoopListIntersect(ListNode *pHead1, ListNode *pHead2);
+
+ListNode* reverseKNode(ListNode *pHead, int k);
+ListNode* reverseEveryKNode(ListNode *pHead, int k);
 
 
 

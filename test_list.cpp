@@ -1,9 +1,9 @@
 #include <cstdio>
 #include <iostream>
 #include "list.h"
+#include <stack>
 
 void test_creatAlist();
-
 void test_deleteMiddleNodeOfList();
 void test_deleteMidNode2();
 void test_reverseList();
@@ -14,10 +14,12 @@ void test_isPalindrome1();
 void test_isPalindrome2();
 void test_listLowMidHigh();
 void test_addTwoList();
+void test_getEntryOfLoop();
+void test_reverseEveryKNode();
 
 int main()
 {
-    test_addTwoList();
+    test_reverseEveryKNode();
 }
 
 void test_creatAlist()
@@ -110,8 +112,25 @@ void test_addTwoList()
 {
     printf("input list1\n");
     ListNode *pHead1 = createAList();
-    printf("input list2");
+    printf("input list2\n");
     ListNode *pHead2 = createAList();
     ListNode *pNew = addTwoList(pHead1, pHead2);
     printList(pNew);
+}
+
+void test_getEntryOfLoop()
+{
+    ListNode *pHead = createAList2();
+    ListNode *pEntry = getEntryOfLoop(pHead);
+    printf("%d\n", pEntry != NULL ? pEntry->m_nValue : -1);
+}
+
+void test_reverseEveryKNode()
+{
+    ListNode *pHead = createAList();
+    printf("input k:");
+    int k;
+    std::cin >> k;
+    pHead = reverseEveryKNode(pHead, k);
+    printList(pHead);
 }

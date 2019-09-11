@@ -2,6 +2,9 @@
 #include <iostream>
 #include <stack>
 #include "list.h"
+#include <vector>
+#include <cmath>
+std::vector<ListNode*> nodes;
 
 ListNode* createAList()
 {
@@ -38,6 +41,47 @@ ListNode* createAList()
     return pHead;
 }
 
+ListNode* createAList2()
+{
+    int k = 0;
+    ListNode *pHead = NULL;
+    ListNode *pEnd = NULL;
+    nodes.clear();
+    while(1)
+    {
+        printf("input an integer(not 999999):");
+        std::cin >> k;
+        if(k != 999999)
+        {
+            ListNode *pNode = new ListNode;
+            pNode->m_nValue = k;
+            pNode->m_pNext = NULL;
+            nodes.push_back(pNode);
+            if(pHead == NULL)
+            {
+                pHead = pNode;
+                pEnd = pNode;
+            }
+            else
+            {
+                pEnd->m_pNext = pNode;
+                pEnd = pEnd->m_pNext;
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+    printList(pHead);
+    printf("input the loop entry:\n");
+    int n = -1;
+    std::cin >> n;
+    if(n != -1)
+        pEnd->m_pNext = nodes[n!=0? n-1 : n];
+    return pHead;
+}
+
 void printList(ListNode *pHead)
 {
     if(pHead == NULL)
@@ -54,7 +98,7 @@ void printList(ListNode *pHead)
         printf(" %d ->", pNode->m_nValue);
         pNode = pNode->m_pNext;
     }
-    printf("\n");
+    printf(" null\n");
 }
 
 int totalNodesOfList(ListNode *pHead)
@@ -594,10 +638,156 @@ ListNode* addTwoList(ListNode *pHead1, ListNode *pHead2)
     return pNew;
 }
 
+ListNode* getEntryOfLoop(ListNode *pHead)
+{
+    if(pHead == NULL)
+        return NULL;
+
+    ListNode *pNode1 = pHead;
+    ListNode *pNode2 = pHead;
+    while(pNode2 != NULL && pNode2->m_pNext != NULL)
+    {
+        pNode1 = pNode1->m_pNext;
+        pNode2 = pNode2->m_pNext->m_pNext;
+        if(pNode1 == pNode2)
+            break;
+    }
+    if(pNode2 == NULL || pNode2->m_pNext == NULL)
+        return NULL;
+    pNode1 = pHead;
+    while(pNode1 != pNode2)
+    {
+        pNode1 = pNode1->m_pNext;
+        pNode2 = pNode2->m_pNext;
+    }
+    return pNode1;
+}
+
+ListNode* isNoLoopListIntersect(ListNode *pHead1, ListNode *pHead2)
+{
+    if(pHead1 == NULL || pHead2 == NULL)
+        return NULL;
+
+    ListNode *pNode1 = pHead1;
+    ListNode *pNode2 = pHead2;
+    int len = 1;
+
+    while(pNode1->m_pNext != NULL)
+    {
+        len++;
+        pNode1 = pNode1->m_pNext;
+    }
+    len--;
+    while(pNode2->m_pNext != NULL)
+    {
+        len--;
+        pNode2 = pNode2->m_pNext;
+    }
+    if(pNode1 != pNode2)
+        return NULL;
+
+    pNode1 = len > 0 ? pHead1 : pHead2;
+    pNode2 = pNode1 == pHead1 ? pHead2 : pHead1;
+    len = abs(len);
+    while(len != 0)
+    {
+        pNode1 = pNode1->m_pNext;
+        len--;
+    }
+    while(pNode1 != pNode2)
+    {
+        pNode1 = pNode1->m_pNext;
+        pNode2 = pNode2->m_pNext;
+    }
+    return pNode1;
+
+}
 
 
+ListNode* reverseKNode(ListNode *pHead, int k)
+{
+    if(pHead == NULL || k < 2)
+    {
+        printf("valid parameter! pHead : %p, k : %d\n",pHead, k);
+        return NULL;
+    }
 
+    ListNode *pNode = pHead;
+    ListNode *pNext = NULL;
+    ListNode *pStart = NULL;
+    int i = 1;
 
+    while(i <= k && pNode != NULL)
+    {
+        pNext = pNode->m_pNext;
+        pNode->m_pNext = pStart;
+        pStart = pNode;
+        pNode = pNext;
+        i++;
+    }
+
+    if(i > k)
+    {
+        return pStart;
+    }
+    else
+    {
+        printf("list length < k(%d)\n", k);
+        return NULL;
+    }
+}
+
+ListNode* reverseEveryKNode(ListNode *pHead, int k)
+{
+    if(pHead == NULL || k < 2)
+    {
+        printf("valid parameter! pHead : %p, k : %d\n",pHead, k);
+        return pHead;
+    }
+
+    int i = 0;
+    ListNode *pNode = pHead;
+    ListNode *pFront = NULL;
+    ListNode *pRear = NULL;
+    ListNode *pNewHead = NULL;
+    ListNode *pTmp = NULL;
+    ListNode *pNext = NULL;
+
+    while(pNode != NULL)
+    {
+        pNext = pNode->m_pNext;
+        i++;
+        if(i == 1)
+        {
+            pFront = pNode;
+        }
+        else if(i == k)
+        {
+            pTmp = reverseKNode(pFront, k);
+            if(pNewHead == NULL)
+            {
+                pNewHead = pTmp;
+            }
+            else
+            {
+                pRear->m_pNext = pTmp;
+            }
+            pRear = pFront;
+            pRear->m_pNext = pNext;
+            i = 0;
+        }
+        pNode = pNext;
+    }
+
+    if(pNewHead != NULL)
+    {
+        return pNewHead;
+    }
+    else
+    {
+        return pHead;
+    }
+}
 
 
 
